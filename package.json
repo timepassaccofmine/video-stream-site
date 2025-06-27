@@ -1,0 +1,16 @@
+{
+  "name": "chai_playlist_backend",
+  "version": "1.0.0",
+  "description": "youtube like website",
+  "keywords": [
+    "js",
+    "backend"
+  ],
+  "license": "ISC",
+  "author": "Sarvesh Jangam",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
