@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from "fs"
+import { ApiError } from './ApiError.js';
 
 // Configuration
 cloudinary.config({ 
@@ -20,12 +21,28 @@ const uploadOnCloudinary=async (localFilePath)=>{
         //file has been uploaded successfully
         // console.log("file is uploaded on cloudinary and response url is: ",response.secure_url)
         fs.unlinkSync(localFilePath);
+        // console.log(response);
         return response
     }
     catch(error){
         console.log(`unlinking ${localFilePath}!!`)
         fs.unlinkSync(localFilePath) //remove the locally saved temp file as the upload failed
         return null;
+    }
+}
+
+
+const deleteOnCloudinary= async (public_id)=>{
+    try {
+        const response = await cloudinary.uploader.destroy(public_id, {
+            resource_type: "image"
+        });
+        // console.log("Delete response:", response);
+        return;
+    } 
+    catch (error) {
+        console.log(error);
+        throw new ApiError(500,"Error deleting old file on cloudinary")
     }
 }
 
@@ -40,4 +57,4 @@ const uploadOnCloudinary=async (localFilePath)=>{
 //     console.log(error);
 // });
     
-export {uploadOnCloudinary}
+export {uploadOnCloudinary,deleteOnCloudinary}
