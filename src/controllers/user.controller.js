@@ -267,7 +267,7 @@ const updateUserAvatar=AsyncHandler(async (req,res)=>{
     if(!avatarLocalPath){
         throw new ApiError(400,"No avatar uploaded to be updated");
     }
-    const oldUser=await User.findById(req?.user?._id).select("-password -refreshToken");;
+    const oldUser=await User.findById(req?.user?._id).select("-password -refreshToken");
     const oldAvatar=oldUser?.avatar;
     const public_id=oldAvatar.split("/").pop().split('.')[0];
     // console.log(public_id);
